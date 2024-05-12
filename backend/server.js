@@ -1,9 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 // import cors from "cors";
+import { MovieRouter } from "./routes/displayMovie.js";
 import { userRouter } from "./Routes/signup.js";
 import { loginRouter } from "./Routes/login.js";
-
 const app = express();
 
 // Body parser middleware
@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 
 app.use(userRouter);
 app.use(loginRouter);
-
+app.use(MovieRouter);
 app.listen(4000, () => {
     console.log('listening !!!');
 });

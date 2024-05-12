@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 // SjANOXACErKMbtta
 const movieSchema = new mongoose.Schema({
   name: {
@@ -8,11 +8,11 @@ const movieSchema = new mongoose.Schema({
 
   locations: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Location'
+    ref: 'locations'
   }],
   description: String,
 });
 
-const Movie = mongoose.model('Movie', movieSchema);
+export const Movie = mongoose.model('Movie', movieSchema);
 
-module.exports = Movie;
+// module.exports = Movie;
