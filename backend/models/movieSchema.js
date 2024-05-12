@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-
+// SjANOXACErKMbtta
 const movieSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
   },
-  photo: String,
+
   locations: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Location'

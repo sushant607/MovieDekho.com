@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const port = 3000;
+const LocationRouter = require('./routes/ticket_booking.js');
 const cors=require('cors');
 mongoose.connect('mongodb+srv://sushantbagul607:SjANOXACErKMbtta@cluster0.2qjfhyy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
@@ -15,6 +16,7 @@ mongoose.connect('mongodb+srv://sushantbagul607:SjANOXACErKMbtta@cluster0.2qjfhy
 });
 app.use(cors())
 app.use(express.json());
+app.use(LocationRouter);
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}`);
 });
