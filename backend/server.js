@@ -1,22 +1,25 @@
-// mongodb+srv://sushantbagul607:<password>@cluster0.2qjfhyy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-// SjANOXACErKMbtta
-const express = require('express');
-const mongoose = require('mongoose');
+import express from "express";
+import mongoose from "mongoose";
+// import cors from "cors";
+import { userRouter } from "./Routes/signup.js";
+import { loginRouter } from "./Routes/login.js";
+
 const app = express();
-const port = 3000;
-const LocationRouter = require('./routes/ticket_booking.js');
-const cors=require('cors');
-mongoose.connect('mongodb+srv://sushantbagul607:SjANOXACErKMbtta@cluster0.2qjfhyy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log("MongoDB connected");
-}).catch(err => {
-  console.error("MongoDB connection error", err);
+
+// Body parser middleware
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+// Ensure your MongoDB URI is correct and securely handled
+mongoose.connect("mongodb+srv://sushantbagul607:SjANOXACErKMbtta@cluster0.2qjfhyy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+
+app.get("/", (req, res) => {
+    res.json({ mssg: "hello" });
 });
-app.use(cors())
-app.use(express.json());
-app.use(LocationRouter);
-app.listen(port, () => {
-  console.log(`Server is listening at http://localhost:${port}`);
+
+app.use(userRouter);
+app.use(loginRouter);
+
+app.listen(4000, () => {
+    console.log('listening !!!');
 });
