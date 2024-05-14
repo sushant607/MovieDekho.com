@@ -1,10 +1,13 @@
 import React from 'react'
 
-function SignupPage({ handleToggleMode }) {
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Handle sign up
-    console.log('Sign up form submitted')
+function SignupPage({ handleTogglePage }) {
+  const handleToggleMode = () => {
+    handleTogglePage() // This calls the function passed as a prop to toggle pages
+  }
+
+  const handleSignup = () => {
+    // Your signup logic goes here
+    handleToggleMode() // Call handleToggleMode to toggle pages after signup
   }
 
   return (
@@ -25,7 +28,7 @@ function SignupPage({ handleToggleMode }) {
         }}
       >
         <h1>Create an Account</h1>
-        <form onSubmit={handleSubmit} style={{ marginBottom: '15px' }}>
+        <form onSubmit={handleSignup} style={{ marginBottom: '15px' }}>
           <div>
             <label
               style={{
@@ -153,6 +156,7 @@ function SignupPage({ handleToggleMode }) {
               cursor: 'pointer',
               transition: 'background-color 0.3s ease',
             }}
+            onClick={handleSignup} // Call handleSignup function on button click
           >
             Sign Up
           </button>
