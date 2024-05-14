@@ -1,7 +1,6 @@
 
 // models/Location.js
-const mongoose = require('mongoose');
-
+import mongoose from "mongoose";
 const locationSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -16,10 +15,7 @@ const locationSchema = new mongoose.Schema({
     default: [] 
   }
 });
-
-const Location = mongoose.model('locations', locationSchema);
-
-module.exports = Location;
+export const Location = mongoose.model('locations', locationSchema);
 
 //  models/Booking.js
 // const mongoose = require('mongoose');

@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { MovieRouter } from "./routes/displayMovie.js";
 import { userRouter } from "./Routes/signup.js";
 import { loginRouter } from "./Routes/login.js";
+import { LocationRouter } from "./routes/displayLocation.js";
 const app = express();
 
 // Body parser middleware
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 app.use(userRouter);
 app.use(loginRouter);
 app.use(MovieRouter);
+app.use(LocationRouter);
 app.listen(4000, () => {
     console.log('listening !!!');
 });
