@@ -5,7 +5,6 @@ import axios from 'axios';
 function SignupPage({ handleTogglePage }) {
   const navigate = useNavigate();
   
-  // State hooks for each input field
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');

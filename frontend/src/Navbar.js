@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './Navbar.css'; // Create this CSS file for styling
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import './Navbar.css'; 
+import { Link } from 'react-router-dom'; 
 import { logout } from "./redux/store";
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
@@ -14,7 +14,6 @@ axios.get('http://localhost:3000/user', { params: { username } })
 
   })
   .catch(error => {
-    // Handle errors
     console.error('Error fetching user details:', error);
   });
 

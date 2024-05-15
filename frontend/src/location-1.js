@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import seatImage from './img/seats.png';
 
 const SeatBookingL1 = () => {
-  const locationName = "Location-1"; // Hardcoded location name
+  const locationName = "Location-1"; 
   const [location, setLocation] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
@@ -80,7 +80,7 @@ const SeatBookingL1 = () => {
     background: 'none',
     outline: 'none',
     textAlign: 'center',
-    backgroundColor: 'green' // Initially set to green
+    backgroundColor: 'green' 
   };
 
   const seatImageStyle = {

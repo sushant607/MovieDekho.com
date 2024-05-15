@@ -127,7 +127,7 @@ import axios from 'axios';
 import { login, logout } from "./redux/store";
 function LoginPage({ handleToggleMode }) {
   const navigate = useNavigate();
-  const dispatch = useDispatch(); // If you're using Redux, ensure you're handling states globally
+  const dispatch = useDispatch(); 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 

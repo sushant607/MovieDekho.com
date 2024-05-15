@@ -26,7 +26,7 @@ function MovieDetails() {
   }, [movieId]);
 
   const handleLocationClick = (location) => {
-    navigate(`/location/${location}`);
+    navigate(`/${movie.name}/${location}`);
   };
 
   if (loading) {

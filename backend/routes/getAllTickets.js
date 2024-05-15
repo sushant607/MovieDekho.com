@@ -1,5 +1,5 @@
 import express from "express";
-import { Ticket } from '../models/ticketSchema.js'; // Assuming the path is correct
+import { Ticket } from '../models/ticketSchema.js'; 
 
 const router = express.Router();
 

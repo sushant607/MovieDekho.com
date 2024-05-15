@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   },
   gender: {
     type: String,
-    enum: ['Male', 'Female', 'Other'],
+    enum: ['Male', 'Female'],
     required: true
   },
   username: {
@@ -26,12 +26,11 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  ticketIds: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Ticket'
-  }]
+  Idcard:{
+    type: String,
+    default:""
+  }
 });
 
 export const User = mongoose.model('User', userSchema);
 
-// module.exports = User;

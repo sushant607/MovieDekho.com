@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom'
 
 function Payment() {
   const { ticketId } = useParams()
-  const [currentCredits, setCurrentCredits] = useState(1000) // Example initial credits
+  const [currentCredits, setCurrentCredits] = useState(1000) 
   const [applyStudentConcession, setApplyStudentConcession] = useState(false)
   const [idCardUploaded, setIdCardUploaded] = useState(false)
   const [ticketConfirmed, setTicketConfirmed] = useState(false)
 
-  const ticketPrice = 500 // Example ticket price
+  const ticketPrice = 500 
 
   const handleApplyConcessionChange = (event) => {
     setApplyStudentConcession(event.target.value === 'yes')
@@ -31,7 +31,6 @@ function Payment() {
   }
 
   const handleDownloadTicket = () => {
-    // Dummy download ticket functionality
     alert('Downloading ticket...')
   }
 

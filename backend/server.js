@@ -10,12 +10,10 @@ import {UserDetails} from './Routes/getUser.js'
 import {CreditRouter} from './Routes/addCredits.js'
 const app = express();
 
-// Body parser middleware
-app.use(express.json()); // for parsing application/json
-app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true })); 
 app.use(cors());
 
-// Ensure your MongoDB URI is correct and securely handled
 mongoose.connect("mongodb+srv://sushantbagul607:SjANOXACErKMbtta@cluster0.2qjfhyy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
   useNewUrlParser: true,
   useUnifiedTopology: true
