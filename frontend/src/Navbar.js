@@ -39,7 +39,7 @@ axios.get('http://localhost:3000/user', { params: { username } })
           <li><Link to="/home">Movies</Link></li>
           <li>Credits: {credits}</li>
           <li><Link to="/search">Search Bar</Link></li> 
-          <li>Add Credits</li>
+          <li><Link to="/addCredits">Add Credits</Link></li>
           <li><Link to="/tickets">My Tickets</Link></li>
           <li><Link to="/about">About Us</Link></li>
           <li onClick={handleLogout}>Logout</li> 

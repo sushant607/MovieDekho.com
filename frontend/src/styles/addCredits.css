@@ -1,0 +1,78 @@
+.add-credits {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    border-radius: 10px;
+    background-color: #f0f2f5; /* Light background */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin: 2rem auto; /* Center the form */
+    max-width: 400px; /* Limit width */
+  }
+  
+  .add-credits h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333; /* Darker text for contrast */
+  }
+  
+  .add-credits .user-info,
+  .add-credits .amount-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .add-credits .user-info p {
+    margin-right: 0.5rem;
+    font-weight: bold;
+    color: #333; /* Darker text for contrast */
+  }
+  
+  .add-credits .user-info span {
+    color: #777; /* Lighter text for username */
+  }
+  
+  .add-credits .amount-input label {
+    margin-right: 0.5rem;
+    color: #333; /* Darker text for contrast */
+  }
+  
+  .add-credits input[type="number"] {
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  .add-credits button[type="submit"] {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .add-credits button[type="submit"]:hover {
+    background-color: #388e3c; /* Darker green on hover */
+  }
+  
+  .add-credits .error-message,
+  .add-credits .success-message {
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  .add-credits .error-message {
+    background-color: #f44336; /* Red */
+    color: white;
+  }
+  
+  .add-credits .success-message {
+    background-color: #2e8b57; /* Green */
+    color: white;
+  }
+  
