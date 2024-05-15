@@ -1,50 +1,62 @@
-import React, { useState } from 'react';
-import './Navbar.css'; 
-import { Link } from 'react-router-dom'; 
-import { logout } from "./redux/store";
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import './Navbar.css';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+
 function Navbar() {
     const [credits, setCredits] = useState(0);
-    const username = localStorage.getItem("username");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-axios.get('http://localhost:3000/user', { params: { username } }) 
-  .then(response => {
-     setCredits(response.data.credits);
+    useEffect(() => {
+        const username = localStorage.getItem("username");
+        setIsLoggedIn(!!username);
 
-  })
-  .catch(error => {
-    console.error('Error fetching user details:', error);
-  });
+        if (username) {
+            axios.get('http://localhost:3000/user', { params: { username } })
+                .then(response => {
+                    setCredits(response.data.credits);
+                })
+                .catch(error => {
+                    console.error('Error fetching user details:', error);
+                });
+        }
+    }, []);
 
-    const dispatch = useDispatch(); 
     const handleLogout = () => {
         try {
-          dispatch(logout());
-          alert("Logout Successfully");
-          localStorage.clear();
-          
-          window.location.href = "/"; 
+            alert("Logged out successfully");
+            localStorage.clear();
+            setIsLoggedIn(false);
+            window.location.href = "/";
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      };
+    };
 
-  return (
-    <nav className="navbar">
-      <div className="navbar-brand">MovieDekho.com</div>
-      <div className="navbar-items">
-        <ul>
-          <li><Link to="/home">Movies</Link></li>
-          <li>Credits: {credits}</li>
-          <li><Link to="/addCredits">Add Credits</Link></li>
-          <li><Link to="/tickets">My Tickets</Link></li>
-          <li><Link to="/about">About Us</Link></li>
-          <li onClick={handleLogout}>Logout</li> 
-        </ul>
-      </div>
-    </nav>
-  );
+    const handleLogin = () => {
+        // Navigate to login page
+        window.location.href = "/login";
+    };
+
+    return (
+        <nav className="navbar">
+            <div className="navbar-brand">MovieDekho.com</div>
+            <div className="navbar-items">
+                <ul>
+                    <li><Link to="/home">Movies</Link></li>
+                    {isLoggedIn && <li>Credits: {credits}</li>}
+                    {isLoggedIn && <li><Link to="/addCredits">Add Credits</Link></li>}
+                    {isLoggedIn && <li><Link to="/tickets">My Tickets</Link></li>}
+                    <li><Link to="/about">About Us</Link></li>
+                    {isLoggedIn ? (
+                        <li onClick={handleLogout}>Logout</li>
+                    ) : (
+                        <li onClick={handleLogin}>Login</li>
+                    )}
+                </ul>
+            </div>
+        </nav>
+    );
 }
 
 export default Navbar;
