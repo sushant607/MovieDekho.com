@@ -8,7 +8,8 @@ import Movie from './Movie';
 import MovieDetails from './MovieDetails';
 import About from './About';
 import Navbar from './Navbar';
-import SeatBooking from './location'
+import SeatBookingL1 from './location-1';
+import SeatBookingL2 from './location2';
 import Payment from './Payment';
 
 
@@ -64,9 +65,9 @@ function App() {
             path="/movies/:movieId"
             element={<MovieDetails movies={movies} />}
           />
-          <Route path='/location' element={<SeatBooking/>}/>
+          <Route path='/location/Location-1' element={<SeatBookingL1/>}/>
           <Route path='/about' element={<About/>} />
-          <Route path='/location' element={<SeatBooking/>} />
+          <Route path='/location/Location-2' element={<SeatBookingL2/>} />
           <Route path='/payment' element={<Payment />} ></Route>
         </Routes>
       </div>

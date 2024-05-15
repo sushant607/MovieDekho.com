@@ -1,10 +1,9 @@
-// SeatBooking.js
 
 import React, { useState, useEffect } from 'react';
 import seatImage from './img/seats.png';
 
-const SeatBooking = () => {
-  const locationName = "Location-2"; // Hardcoded location name
+const SeatBookingL1 = () => {
+  const locationName = "Location-1"; // Hardcoded location name
   const [location, setLocation] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
@@ -134,4 +133,5 @@ const SeatBooking = () => {
   );
 };
 
-export default SeatBooking;
+export default SeatBookingL1;
+
