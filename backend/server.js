@@ -1,12 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import { MovieRouter } from "./routes/displayMovie.js";
+import { MoviesRouter } from "./routes/displayMovie.js";
 import { userRouter } from "./routes/signup.js";
 import { loginRouter } from "./routes/login.js";
 import { LocationRouter } from "./routes/displayLocation.js";
-// import {MovieRouter} from './Routes/getMovie.js'
-// import {UserDetails} from './Routes/getUser.js'
+import {MovieRouter} from './Routes/getMovie.js'
+import {UserDetails} from './Routes/getUser.js'
 const app = express();
 
 // Body parser middleware
