@@ -4,6 +4,7 @@ import { Ticket } from '../models/ticketSchema.js';
 const router = express.Router();
 
 router.get('/tickets', async (req, res) => {
+    console.log("hello")
   try {
     const username = req.query.username; 
     
@@ -20,4 +21,4 @@ router.get('/tickets', async (req, res) => {
   }
 });
 
-export { router as TicketRouter };
+export { router as UserTicketRouter };
