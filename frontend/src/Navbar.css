@@ -1,0 +1,27 @@
+.navbar {
+    background-color: #111;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-brand {
+    font-size: 24px;
+  }
+  
+  .navbar-items ul {
+    list-style-type: none;
+    display: flex;
+  }
+  
+  .navbar-items li {
+    margin: 0 10px;
+    cursor: pointer;
+  }
+  
+  .navbar-items li:hover {
+    color: #66ff66;
+  }
+  

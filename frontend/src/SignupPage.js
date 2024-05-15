@@ -1,14 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function SignupPage({ handleTogglePage }) {
-  const handleToggleMode = () => {
-    handleTogglePage() // This calls the function passed as a prop to toggle pages
-  }
+  const navigate = useNavigate();
+  
+  // State hooks for each input field
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+  const [gender, setGender] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleSignup = () => {
-    // Your signup logic goes here
-    handleToggleMode() // Call handleToggleMode to toggle pages after signup
-  }
+  const handleToggleMode = () => {
+    navigate('/login');// This calls the function passed as a prop to toggle pages
+  };
+
+  const handleSignup = async (e) => {
+    e.preventDefault(); // Prevent form from refreshing the page on submit
+    try {
+      const response = await axios.post('http://localhost:3000/register', {
+        name,
+        age,
+        gender,
+        username,
+        password
+      });
+      if (response.data.success) {
+        alert('User created successfully');
+        handleToggleMode(); // Switch to login page after successful registration
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to register user');
+    }
+  };
 
   return (
     <div
@@ -29,119 +55,60 @@ function SignupPage({ handleTogglePage }) {
       >
         <h1>Create an Account</h1>
         <form onSubmit={handleSignup} style={{ marginBottom: '15px' }}>
+          {/* Input fields with handlers */}
           <div>
-            <label
-              style={{
-                display: 'block',
-                marginBottom: '5px',
-                fontWeight: 'bold',
-              }}
-            >
-              Name:
-            </label>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Name:</label>
             <input
               type="text"
               name="name"
               required
-              style={{
-                width: '100%',
-                padding: '10px',
-                borderRadius: '5px',
-                border: '1px solid #ccc',
-                boxSizing: 'border-box',
-              }}
+              style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc', boxSizing: 'border-box' }}
+              value={name}
+              onChange={e => setName(e.target.value)}
             />
           </div>
           <div>
-            <label
-              style={{
-                display: 'block',
-                marginBottom: '5px',
-                fontWeight: 'bold',
-              }}
-            >
-              Age:
-            </label>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Age:</label>
             <input
               type="number"
               name="age"
               required
-              style={{
-                width: '100%',
-                padding: '10px',
-                borderRadius: '5px',
-                border: '1px solid #ccc',
-                boxSizing: 'border-box',
-              }}
+              style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc', boxSizing: 'border-box' }}
+              value={age}
+              onChange={e => setAge(e.target.value)}
             />
           </div>
           <div>
-            <label
-              style={{
-                display: 'block',
-                marginBottom: '5px',
-                fontWeight: 'bold',
-              }}
-            >
-              Gender:
-            </label>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Gender:</label>
             <input
               type="text"
               name="gender"
               required
-              style={{
-                width: '100%',
-                padding: '10px',
-                borderRadius: '5px',
-                border: '1px solid #ccc',
-                boxSizing: 'border-box',
-              }}
+              style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc', boxSizing: 'border-box' }}
+              value={gender}
+              onChange={e => setGender(e.target.value)}
             />
           </div>
           <div>
-            <label
-              style={{
-                display: 'block',
-                marginBottom: '5px',
-                fontWeight: 'bold',
-              }}
-            >
-              Username:
-            </label>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Username:</label>
             <input
               type="text"
               name="username"
               required
-              style={{
-                width: '100%',
-                padding: '10px',
-                borderRadius: '5px',
-                border: '1px solid #ccc',
-                boxSizing: 'border-box',
-              }}
+              style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc', boxSizing: 'border-box' }}
+              value={username}
+              onChange={e => setUsername(e.target.value)}
             />
           </div>
           <div>
-            <label
-              style={{
-                display: 'block',
-                marginBottom: '5px',
-                fontWeight: 'bold',
-              }}
-            >
-              Password:
-            </label>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Password:</label>
             <input
               type="password"
               name="password"
               required
-              style={{
-                width: '100%',
-                padding: '10px',
-                borderRadius: '5px',
-                border: '1px solid #ccc',
-                boxSizing: 'border-box',
-              }}
+              style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc', boxSizing: 'border-box' }}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
             />
           </div>
           <button
@@ -156,7 +123,6 @@ function SignupPage({ handleTogglePage }) {
               cursor: 'pointer',
               transition: 'background-color 0.3s ease',
             }}
-            onClick={handleSignup} // Call handleSignup function on button click
           >
             Sign Up
           </button>
@@ -177,7 +143,7 @@ function SignupPage({ handleTogglePage }) {
         </p>
       </div>
     </div>
-  )
+  );
 }
 
-export default SignupPage
+export default SignupPage;

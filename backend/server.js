@@ -26,6 +26,6 @@ app.use(userRouter);
 app.use(loginRouter);
 app.use(MovieRouter);
 app.use(LocationRouter);
-app.listen(4000, () => {
+app.listen(3000, () => {
     console.log('listening !!!');
 });
