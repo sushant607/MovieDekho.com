@@ -139,7 +139,7 @@ function LoginPage({ handleToggleMode }) {
         alert(data.message);
         localStorage.setItem("username", username);
         dispatch(login())
-        navigate('/');
+        navigate('/home');
       }
     } catch (error) {
       console.log(error);
