@@ -6,6 +6,7 @@ import HomePage from './HomePage'; // Assuming you have a HomePage component
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Movie from './Movie';
 import MovieDetails from './MovieDetails';
+import About from './About';
 import Navbar from './Navbar';
 
 
@@ -61,6 +62,7 @@ function App() {
             path="/movies/:movieId"
             element={<MovieDetails movies={movies} />}
           />
+          <Route path='/about' element={<About/>} />
         </Routes>
       </div>
     </Router>
