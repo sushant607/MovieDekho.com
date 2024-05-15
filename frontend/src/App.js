@@ -6,8 +6,12 @@ import HomePage from './HomePage'; // Assuming you have a HomePage component
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Movie from './Movie';
 import MovieDetails from './MovieDetails';
+import About from './About';
 import Navbar from './Navbar';
-import SeatBooking from './location';
+import SeatBooking from './location'
+import Payment from './Payment';
+
+
 function App() {
   const [currentPage, setCurrentPage] = useState('signup'); // Initialize currentPage to 'signup'
   const movies = [
@@ -51,16 +55,23 @@ function App() {
       <div className="App">
         <Navbar user={user} />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path='/login' element={<LoginPage/>}/>
-          <Route path='/signup' element={<SignupPage/>}/>
-          
-          <Route path="/movies/:movieId" element={<MovieDetails movies={movies} />} />
+          <Route path="/" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route
+            path="/movies/:movieId"
+            element={<MovieDetails movies={movies} />}
+          />
           <Route path='/location' element={<SeatBooking/>}/>
+          <Route path='/about' element={<About/>} />
+          <Route path='/location' element={<SeatBooking/>} />
+          <Route path='/payment' element={<Payment />} ></Route>
         </Routes>
       </div>
     </Router>
-  );
+  )
 }
 
 export default App;

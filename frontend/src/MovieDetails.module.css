@@ -1,0 +1,71 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    overflow: hidden;
+}
+
+.posterFrame {
+    flex: 0 0 40%;
+}
+
+.poster {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.detailsFrame {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Adjusted to align content at the start */
+    padding: 20px;
+}
+
+.title {
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.description {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.locations {
+    font-size: 18px;
+    color: #333;
+    margin-top: 20px;
+}
+
+.locationList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.locationItem {
+    margin: 10px; /* Keep some spacing between location items */
+}
+
+.button {
+    padding: 8px 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}

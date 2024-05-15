@@ -1,210 +1,113 @@
-import React from 'react'
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import Movie from './Movie';
+// function HomePage({ handleLogout }) {
+//   const [movies, setMovies] = useState([]);
 
+//   useEffect(() => {
+//     const fetchMovies = async () => {
+//       try {
+//         const response = await axios.get('http://localhost:3000/movies'); // Adjust the URL as needed
+//         setMovies(response.data);
+//       } catch (error) {
+//         console.error('Failed to fetch movies:', error);
+//       }
+//     };
+//     fetchMovies();
+//   }, []);
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     // Handle search functionality here
+//   };
+
+//   return (
+//     <div style={{ backgroundColor: '#000', minHeight: '100vh', padding: '20px' }}>
+//       <div style={{
+//           marginTop: '20px',
+//           display: 'flex',
+//           justifyContent: 'space-around',
+//           flexWrap: 'wrap',
+//         }}>
+//         {movies.map((movie, index) => (
+//           <div key={index} style={{
+//               backgroundColor: '#fff',
+//               padding: '20px',
+//               borderRadius: '5px',
+//               width: '30%',
+//               minWidth: '200px',
+//               marginBottom: '20px',
+//               textAlign: 'center',
+//             }}>
+//             <div style={{ width: '70%', margin: '0 auto' }}>
+//               <img src={movie.image || 'default_poster.jpg'} alt="Movie Poster" style={{ width: '100%', borderRadius: '5px' }} />
+//               <h2 style={{ margin: '10px 0', fontSize: '20px' }}>{movie.name}</h2>
+//               <p style={{ margin: '0' }}>{movie.description}</p>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default HomePage;
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 function HomePage({ handleLogout }) {
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Handle search functionality here
-  }
+  const [movies, setMovies] = useState([]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/movies');
+        setMovies(response.data);
+      } catch (error) {
+        console.error('Failed to fetch movies:', error);
+      }
+    };
+    fetchMovies();
+  }, []);
+
+  const handleBookTicket = (movieId) => {
+    // Redirect to the movie page
+    // history.push(`/movie/${movieId}`);
+    navigate(`/movies/${movieId}`)
+  };
 
   return (
-    <div
-      style={{ backgroundColor: '#000', minHeight: '100vh', padding: '20px' }}
-    >
-      {/* Navbar */}
-      <nav
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: '10px 20px',
-          backgroundColor: '#dc3545',
-          color: '#fff',
-        }}
-      >
-        <div>
-          <h1
-            style={{
-              fontFamily: 'Arial, sans-serif',
-              fontSize: '24px',
-              margin: '0',
-            }}
-          >
-            MovieDekho.com
-          </h1>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <form onSubmit={handleSubmit} style={{ marginRight: '10px' }}>
-            <input
-              type="text"
-              placeholder="Search"
-              style={{ padding: '8px', borderRadius: '5px', border: 'none' }}
-            />
-            <button
-              type="submit"
-              style={{
-                marginLeft: '5px',
-                padding: '8px 12px',
-                borderRadius: '5px',
-                backgroundColor: '#dc3545',
-                color: '#fff',
-                border: 'none',
-                cursor: 'pointer',
-              }}
-            >
-              Search
-            </button>
-          </form>
-          <button
-            onClick={handleLogout}
-            style={{
-              backgroundColor: 'transparent',
-              color: '#fff',
-              border: 'none',
-              cursor: 'pointer',
-              fontSize: '16px',
-            }}
-          >
-            Logout
-          </button>
-        </div>
-      </nav>
-
-      {/* Dashboard */}
-      <div
-        style={{
+    <div style={{ backgroundColor: '#000', minHeight: '100vh', padding: '20px' }}>
+      <div style={{
           marginTop: '20px',
           display: 'flex',
           justifyContent: 'space-around',
           flexWrap: 'wrap',
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: '#dc3545',
-            color: '#fff',
-            padding: '20px',
-            borderRadius: '5px',
-            width: '30%',
-            minWidth: '200px',
-            marginBottom: '20px',
-            textAlign: 'center',
-          }}
-        >
-          <h2 style={{ margin: '0' }}>My Credits</h2>
-          {/* Content for My Credits */}
-        </div>
-        <div
-          style={{
-            backgroundColor: '#dc3545',
-            color: '#fff',
-            padding: '20px',
-            borderRadius: '5px',
-            width: '30%',
-            minWidth: '200px',
-            marginBottom: '20px',
-            textAlign: 'center',
-          }}
-        >
-          <h2 style={{ margin: '0' }}>Add Credits</h2>
-          {/* Content for Add Credits */}
-        </div>
-        <div
-          style={{
-            backgroundColor: '#dc3545',
-            color: '#fff',
-            padding: '20px',
-            borderRadius: '5px',
-            width: '30%',
-            minWidth: '200px',
-            marginBottom: '20px',
-            textAlign: 'center',
-          }}
-        >
-          <h2 style={{ margin: '0' }}>My Tickets</h2>
-          {/* Content for My Tickets */}
-        </div>
-      </div>
-
-      {/* Current Movies Section */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around',
-          flexWrap: 'wrap',
-        }}
-      >
-        {/* Card 1 */}
-        <div
-          style={{
-            backgroundColor: '#fff',
-            padding: '20px',
-            borderRadius: '5px',
-            width: '30%',
-            minWidth: '200px',
-            marginBottom: '20px',
-            textAlign: 'center',
-          }}
-        >
-          <div style={{ width: '70%', margin: '0 auto' }}>
-            {/* Movie Poster */}
-            <img
-              src="poster.jpg"
-              alt="Movie Poster"
-              style={{ width: '100%', borderRadius: '5px' }}
-            />
-            <h2 style={{ margin: '10px 0', fontSize: '20px' }}>Movie 1</h2>
-            <p style={{ margin: '0' }}>Short description of the movie...</p>
+        }}>
+        {movies.map((movie, index) => (
+          <div key={index} style={{
+              backgroundColor: '#fff',
+              padding: '20px',
+              borderRadius: '5px',
+              width: '30%',
+              minWidth: '200px',
+              marginBottom: '20px',
+              textAlign: 'center',
+            }}>
+            <div style={{ width: '70%', margin: '0 auto' }}>
+              <img src={movie.image || 'default_poster.jpg'} alt={movie.name + " Poster"} style={{ width: '100%', borderRadius: '5px' }} />
+              <h2 style={{ margin: '10px 0', fontSize: '20px' }}>{movie.name}</h2>
+              <p style={{ margin: '0' }}>{movie.description}</p>
+              <p style={{ margin: '10px 0', fontWeight: 'bold' }}>Location: {movie.location}</p>
+              <button onClick={() => handleBookTicket(movie.name)} style={{ padding: '10px 20px', fontSize: '16px', backgroundColor: 'blue', color: 'white', borderRadius: '5px', cursor: 'pointer' }}>
+                Book Ticket
+              </button>
+            </div>
           </div>
-        </div>
-        {/* Card 2 */}
-        <div
-          style={{
-            backgroundColor: '#fff',
-            padding: '20px',
-            borderRadius: '5px',
-            width: '30%',
-            minWidth: '200px',
-            marginBottom: '20px',
-            textAlign: 'center',
-          }}
-        >
-          <div style={{ width: '70%', margin: '0 auto' }}>
-            {/* Movie Poster */}
-            <img
-              src="./poster.jpg"
-              alt="Movie Poster"
-              style={{ width: '100%', borderRadius: '5px' }}
-            />
-            <h2 style={{ margin: '10px 0', fontSize: '20px' }}>Movie 2</h2>
-            <p style={{ margin: '0' }}>Short description of the movie...</p>
-          </div>
-        </div>
-        {/* Card 3 */}
-        <div
-          style={{
-            backgroundColor: '#fff',
-            padding: '20px',
-            borderRadius: '5px',
-            width: '30%',
-            minWidth: '200px',
-            marginBottom: '20px',
-            textAlign: 'center',
-          }}
-        >
-          <div style={{ width: '70%', margin: '0 auto' }}>
-            {/* Movie Poster */}
-            <img
-              src="poster.jpg"
-              alt="Movie Poster"
-              style={{ width: '100%', borderRadius: '5px' }}
-            />
-            <h2 style={{ margin: '10px 0', fontSize: '20px' }}>Movie 3</h2>
-            <p style={{ margin: '0' }}>Short description of the movie...</p>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default HomePage
+export default HomePage;

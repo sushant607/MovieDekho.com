@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Movie.css';
-
 function Movie({ movies }) {
   return (
     <div className="movies-container">

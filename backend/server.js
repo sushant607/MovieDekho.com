@@ -5,6 +5,8 @@ import { MovieRouter } from "./routes/displayMovie.js";
 import { userRouter } from "./Routes/signup.js";
 import { loginRouter } from "./Routes/login.js";
 import { LocationRouter } from "./routes/displayLocation.js";
+import {MovieRouter} from './Routes/getMovie.js'
+import {UserDetails} from './Routes/getUser.js'
 const app = express();
 
 // Body parser middleware
@@ -26,8 +28,10 @@ app.get("/", (req, res) => {
 
 app.use(userRouter);
 app.use(loginRouter);
+app.use(MoviesRouter);
 app.use(MovieRouter);
 app.use(LocationRouter);
-app.listen(3000, () => {
+app.use(UserDetails);
+app.listen(4000, () => {
     console.log('listening !!!');
 });
