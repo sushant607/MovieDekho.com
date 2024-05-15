@@ -6,10 +6,7 @@ const movieSchema = new mongoose.Schema({
     required: true
   },
 
-  locations: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'locations'
-  }],
+  locations: [String],
   description: String,
 });
 

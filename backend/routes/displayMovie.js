@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/movies', async (req, res) => {
   try {
     const movies = await Movie.find({}, 'name description locations');
-
+    // console.log(movies)
     res.json(movies);
   } catch (error) {
     // Handle any errors
@@ -14,4 +14,4 @@ router.get('/movies', async (req, res) => {
   }
 });
 
-export { router as MovieRouter };
+export { router as MoviesRouter };
