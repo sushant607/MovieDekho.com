@@ -8,19 +8,22 @@ function TicketsPage() {
   useEffect(() => {
     const getUsername = localStorage.getItem('username');
     setUsername(getUsername);
+  }, []);
 
+  useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const response = await axios.get(`/tickets?username=${username}`);
-        setTickets(response.data);
+        if (username) {
+          const response = await axios.get(`/tickets?username=${username}`);
+          setTickets(response.data);
+          console.log(response.data);
+        }
       } catch (error) {
         console.error('Failed to fetch tickets:', error);
       }
     };
 
-    if (username) {
-      fetchTickets();
-    }
+    fetchTickets();
   }, [username]);
 
   return (

@@ -7,7 +7,8 @@ import { loginRouter } from "./routes/login.js";
 import { LocationRouter } from "./routes/displayLocation.js";
 import {MovieRouter} from './Routes/getMovie.js'
 import {UserDetails} from './Routes/getUser.js'
-import {CreditRouter} from './Routes/addCredits.js'
+import {CreditRouter} from './Routes/addCredits.js';
+import {TicketRouter } from './Routes/bookTicket.js'
 const app = express();
 
 app.use(express.json()); 
@@ -32,6 +33,7 @@ app.use(MovieRouter);
 app.use(LocationRouter);
 app.use(UserDetails);
 app.use(CreditRouter);
+app.use(TicketRouter);
 app.listen(4000, () => {
     console.log('listening !!!');
 });

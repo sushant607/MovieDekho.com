@@ -1,12 +1,22 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-
+import axios from 'axios';
 function Payment() {
-  const { ticketId } = useParams()
-  const [currentCredits, setCurrentCredits] = useState(1000) 
+  const { ticketId, movie, location } = useParams();
+  const [currentCredits, setCurrentCredits] = useState(0) 
   const [applyStudentConcession, setApplyStudentConcession] = useState(false)
   const [idCardUploaded, setIdCardUploaded] = useState(false)
   const [ticketConfirmed, setTicketConfirmed] = useState(false)
+  const username = localStorage.getItem("username");
+
+axios.get('http://localhost:3000/user', { params: { username } }) 
+  .then(response => {
+    setCurrentCredits(response.data.credits);
+
+  })
+  .catch(error => {
+    console.error('Error fetching user details:', error);
+  });
 
   const ticketPrice = 500 
 
@@ -15,20 +25,44 @@ function Payment() {
   }
 
   const handleConfirmTicket = () => {
-    if (currentCredits >= ticketPrice) {
+    const priceToDeduct = applyStudentConcession ? 250 : 500; // Using the provided values
+  
+    if (currentCredits >= priceToDeduct) {
       if (applyStudentConcession && !idCardUploaded) {
-        alert('Please upload your student ID card.')
-      } else {
-        setCurrentCredits(
-          currentCredits -
-            (applyStudentConcession ? ticketPrice / 2 : ticketPrice)
-        )
-        setTicketConfirmed(true)
-      }
+        alert('Please upload your student ID card.');
+        return; // Stop execution if the ID is not uploaded
+      } 
+  
+      // Send the request to the backend to update the user's credits
+      axios.post('/updateCredits', {
+        username: username, // Replace with actual username data if available
+        amount: -priceToDeduct // Deducting the credits
+      }).then(response => {
+        alert(`Credits updated successfully.`);
+        setCurrentCredits(currentCredits - priceToDeduct);
+        
+        // Now book the ticket after updating credits
+        axios.post('/bookTicket', {
+          movieName: movie, // Replace with actual movie name
+          location: location, // Replace with actual location
+          price: priceToDeduct, // Price after concession if applicable
+          userId: username // Or another user identifier if available
+        }).then(response => {
+          alert('Ticket booked successfully.');
+          setTicketConfirmed(true);
+        }).catch(error => {
+          console.error('Error booking ticket:', error);
+          alert('Failed to book ticket. Please try again.');
+        });
+  
+      }).catch(error => {
+        console.error('Error updating credits:', error);
+        alert('Failed to update credits. Please try again.');
+      });
     } else {
-      alert('Insufficient credits to purchase the ticket.')
+      alert('Insufficient credits to purchase the ticket.');
     }
-  }
+  };
 
   const handleDownloadTicket = () => {
     alert('Downloading ticket...')

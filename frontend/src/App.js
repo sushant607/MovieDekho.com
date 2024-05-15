@@ -18,7 +18,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar user={user} />
+        <Navbar  />
         <Routes>
           <Route path="/" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -34,7 +34,7 @@ function App() {
           <Route path='/:movieName/Location-1' element={<SeatBookingL1/>}/>
           <Route path='/about' element={<About/>} />
           <Route path='/:movieId/Location-2' element={<SeatBookingL2/>} />
-          <Route path='/payment' element={<Payment />} ></Route>
+          <Route path='/payment/:ticketId/:movie/:location' element={<Payment />} />
         </Routes>
       </div>
     </Router>
