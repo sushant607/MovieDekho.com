@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { login, logout } from "./redux/store";
-function LoginPage({ handleToggleMode }) {
+function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch(); 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  const handleToggleMode=()=>{
+    navigate('/signup');
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
