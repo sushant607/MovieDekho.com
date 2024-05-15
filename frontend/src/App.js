@@ -11,7 +11,7 @@ import Navbar from './Navbar';
 import SeatBookingL1 from './location-1';
 import SeatBookingL2 from './location2';
 import Payment from './Payment';
-
+import TicketsPage from './tickets';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('signup'); // Initialize currentPage to 'signup'
@@ -65,6 +65,7 @@ function App() {
             path="/movies/:movieId"
             element={<MovieDetails movies={movies} />}
           />
+          <Route path='/tickets' element={<TicketsPage/>}/>
           <Route path='/location/Location-1' element={<SeatBookingL1/>}/>
           <Route path='/about' element={<About/>} />
           <Route path='/location/Location-2' element={<SeatBookingL2/>} />

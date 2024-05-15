@@ -50,10 +50,12 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .locationItem {
-    margin: 10px; /* Keep some spacing between location items */
+    margin: 10px;
 }
 
 .button {

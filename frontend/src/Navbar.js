@@ -8,11 +8,8 @@ function Navbar({ user }) {
     const [credits, setCredits] = useState(0);
     const username = localStorage.getItem("username");
 
-
-// Make a GET request to fetch user details (corrected)
-axios.get('http://localhost:3000/user', { params: { username } }) // Use GET for fetching data
+axios.get('http://localhost:3000/user', { params: { username } }) 
   .then(response => {
-    // Handle successful response
      setCredits(response.data.credits);
 
   })
@@ -39,12 +36,13 @@ axios.get('http://localhost:3000/user', { params: { username } }) // Use GET for
       <div className="navbar-brand">MovieDekho.com</div>
       <div className="navbar-items">
         <ul>
-          <li><Link to="/home">Current movies</Link></li>
-          <li>Display Credits: {credits}</li>
-          <li><Link to="/search">Search Bar</Link></li> {/* Link to the search page */}
+          <li><Link to="/home">Movies</Link></li>
+          <li>Credits: {credits}</li>
+          <li><Link to="/search">Search Bar</Link></li> 
           <li>Add Credits</li>
-          <li>My Tickets</li>
-          <li onClick={handleLogout}>Logout</li> {/* Use onClick to trigger logout */}
+          <li><Link to="/tickets">My Tickets</Link></li>
+          <li><Link to="/about">About Us</Link></li>
+          <li onClick={handleLogout}>Logout</li> 
         </ul>
       </div>
     </nav>

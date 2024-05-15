@@ -71,8 +71,6 @@ function HomePage({ handleLogout }) {
   }, []);
 
   const handleBookTicket = (movieId) => {
-    // Redirect to the movie page
-    // history.push(`/movie/${movieId}`);
     navigate(`/movies/${movieId}`)
   };
 

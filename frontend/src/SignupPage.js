@@ -13,11 +13,11 @@ function SignupPage({ handleTogglePage }) {
   const [password, setPassword] = useState('');
 
   const handleToggleMode = () => {
-    navigate('/login');// This calls the function passed as a prop to toggle pages
+    navigate('/login');
   };
 
   const handleSignup = async (e) => {
-    e.preventDefault(); // Prevent form from refreshing the page on submit
+    e.preventDefault(); 
     try {
       const response = await axios.post('http://localhost:3000/register', {
         name,
@@ -28,7 +28,7 @@ function SignupPage({ handleTogglePage }) {
       });
       if (response.data.success) {
         alert('User created successfully');
-        handleToggleMode(); // Switch to login page after successful registration
+        handleToggleMode(); 
       }
     } catch (error) {
       console.error(error);
@@ -55,7 +55,6 @@ function SignupPage({ handleTogglePage }) {
       >
         <h1>Create an Account</h1>
         <form onSubmit={handleSignup} style={{ marginBottom: '15px' }}>
-          {/* Input fields with handlers */}
           <div>
             <label
               style={{
