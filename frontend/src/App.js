@@ -8,6 +8,8 @@ import Movie from './Movie';
 import MovieDetails from './MovieDetails';
 import About from './About';
 import Navbar from './Navbar';
+import SeatBooking from './location'
+import Payment from './Payment';
 
 
 function App() {
@@ -63,6 +65,8 @@ function App() {
             element={<MovieDetails movies={movies} />}
           />
           <Route path='/about' element={<About/>} />
+          <Route path='/location' element={<SeatBooking/>} />
+          <Route path='/payment' element={<Payment />} ></Route>
         </Routes>
       </div>
     </Router>
