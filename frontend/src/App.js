@@ -64,6 +64,7 @@ function App() {
             path="/movies/:movieId"
             element={<MovieDetails movies={movies} />}
           />
+          <Route path='/location' element={<SeatBooking/>}/>
           <Route path='/about' element={<About/>} />
           <Route path='/location' element={<SeatBooking/>} />
           <Route path='/payment' element={<Payment />} ></Route>
