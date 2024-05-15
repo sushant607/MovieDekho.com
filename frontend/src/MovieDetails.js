@@ -231,7 +231,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import posterImage from './img/poster.jpg';
 import styles from './MovieDetails.module.css';
 
 function MovieDetails() {
@@ -276,7 +275,7 @@ function MovieDetails() {
     <div className={styles.container}>
       <div className={styles.posterFrame}>
         <img
-          src={movie.image || posterImage}
+          src={require(`./img/${movie.name}.jpg`)} 
           alt={`${movie.name} Poster`}
           className={styles.poster}
         />

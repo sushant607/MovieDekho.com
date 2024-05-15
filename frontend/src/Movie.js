@@ -8,7 +8,7 @@ function Movie({ movies }) {
         <Link key={movie._id} to={`/movies/${movie._id}`} className="movie-link">
           <div className="movie-card">
             <div className="movie-image-container">
-              <img src={`https://via.placeholder.com/150?text=${movie.name}`} alt={movie.name} className="movie-image" />
+              <img src={`./img/${movie.name}.jpg`} alt={movie.name} className="movie-image" />
             </div>
             <div className="movie-details">
               <h2 className="movie-title">{movie.name}</h2>

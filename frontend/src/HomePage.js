@@ -95,7 +95,7 @@ function HomePage({ handleLogout }) {
               textAlign: 'center',
             }}>
             <div style={{ width: '70%', margin: '0 auto' }}>
-              <img src={movie.image || 'default_poster.jpg'} alt={movie.name + " Poster"} style={{ width: '100%', borderRadius: '5px' }} />
+              <img src={require(`./img/${movie.name}.jpg`)} alt={movie.name + " Poster"} style={{ width: '100%', borderRadius: '5px' }} />
               <h2 style={{ margin: '10px 0', fontSize: '20px' }}>{movie.name}</h2>
               <p style={{ margin: '0' }}>{movie.description}</p>
               <p style={{ margin: '10px 0', fontWeight: 'bold' }}>Location: {movie.location}</p>
