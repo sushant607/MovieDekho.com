@@ -52,15 +52,19 @@ function App() {
       <div className="App">
         <Navbar user={user} />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path='/login' element={<LoginPage/>}/>
-          <Route path='/signup' element={<SignupPage/>}/>
-          
-          <Route path="/movies/:movieId" element={<MovieDetails movies={movies} />} />
+          <Route path="/" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route
+            path="/movies/:movieId"
+            element={<MovieDetails movies={movies} />}
+          />
         </Routes>
       </div>
     </Router>
-  );
+  )
 }
 
 export default App;
