@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import seatImage from './img/seats.png';
 
 const SeatBooking = () => {
-  const locationName = "Location-1"; // Hardcoded location name
+  const locationName = "Location-2"; // Hardcoded location name
   const [location, setLocation] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
@@ -12,7 +12,7 @@ const SeatBooking = () => {
   useEffect(() => {
     const fetchLocation = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/location/${locationName}`);
+        const response = await fetch(`http://localhost:4000/location/${locationName}`);
         if (!response.ok) {
           throw new Error(`Error fetching location data: ${response.statusText}`);
         }
@@ -51,7 +51,7 @@ const SeatBooking = () => {
     );
 
     try {
-      const response = await fetch(`http://localhost:3000/location/${location.name}/occupancy`, {
+      const response = await fetch(`http://localhost:4000/location/${location.name}/occupancy`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
