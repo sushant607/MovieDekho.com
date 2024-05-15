@@ -7,8 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Movie from './Movie';
 import MovieDetails from './MovieDetails';
 import Navbar from './Navbar';
-
-
+import SeatBooking from './location';
 function App() {
   const [currentPage, setCurrentPage] = useState('signup'); // Initialize currentPage to 'signup'
   const movies = [
@@ -57,6 +56,7 @@ function App() {
           <Route path='/signup' element={<SignupPage/>}/>
           
           <Route path="/movies/:movieId" element={<MovieDetails movies={movies} />} />
+          <Route path='/location' element={<SeatBooking/>}/>
         </Routes>
       </div>
     </Router>
