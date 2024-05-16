@@ -5,22 +5,20 @@ const router = express.Router();
 
 router.post('/bookTicket', async (req, res) => {
   try {
-    const { movieName, location, price, userId } = req.body;
+    const { movieName, location, price, userId, seatNumber } = req.body;
 
-    // Validate request body
-    if (!movieName || !location || !price || !userId) {
+    if (!movieName || !location || !price || !userId || !seatNumber){
       return res.status(400).json({ message: 'Missing required fields' });
     }
 
-    // Create a new ticket
     const newTicket = new Ticket({
       movieName,
       location,
       price,
-      userId
+      userId,
+      seatNumber
     });
 
-    // Save the ticket to the database
     await newTicket.save();
 
     res.status(201).json({ message: 'Ticket booked successfully', ticket: newTicket });
@@ -31,3 +29,4 @@ router.post('/bookTicket', async (req, res) => {
 });
 
 export { router as TicketRouter };
+

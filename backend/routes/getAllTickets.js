@@ -13,8 +13,6 @@ router.get('/tickets', async (req, res) => {
     }
 
     const tickets = await Ticket.find({ userId: username });
-    console.log(username,tickets)
-    console.log("ftgyihbe ifbf8j")
     res.json(tickets);
   } catch (error) {
     res.status(500).json({ message: error.message });

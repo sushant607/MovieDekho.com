@@ -36,34 +36,37 @@ function TicketsPage() {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    width:"500px"
+    width: '600px', 
   };
 
   const containerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, minmax(500px, 1fr))', 
+    gap: '20px',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: '20px',
   };
 
   return (
+    <>
+    <h1>My Tickets</h1>
     <div style={containerStyle}>
-      <h1>My Tickets</h1>
       {tickets.length > 0 ? (
-        <div>
-          {tickets.map((ticket) => (
-            <div key={ticket._id} style={cardStyle}>
-              <h2>{ticket.movieName}</h2>
-              <p>Location: {ticket.location}</p>
-              <p>Price: ${ticket.price}</p>
-            </div>
-          ))}
-        </div>
+        tickets.map((ticket) => (
+          <div key={ticket._id} style={cardStyle}>
+            <h2>{ticket.movieName}</h2>
+            <p>Location: {ticket.location}</p>
+            <p>Price: Rs {ticket.price}</p>
+            <p>Seat Number: {ticket.seatNumber}</p>
+          </div>
+        ))
       ) : (
         <p>You have no tickets.</p>
       )}
     </div>
+    </>
   );
-}
+};
 
 export default TicketsPage;

@@ -1,119 +1,99 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
+
 function Payment() {
-  const { ticketId, movie, location } = useParams();
-  const [currentCredits, setCurrentCredits] = useState(0) 
-  const [applyStudentConcession, setApplyStudentConcession] = useState(false)
-  const [idCardUploaded, setIdCardUploaded] = useState(false)
-  const [ticketConfirmed, setTicketConfirmed] = useState(false)
-  const username = localStorage.getItem("username");
+  const { ticketIds, movie, location } = useParams();
+  const [currentCredits, setCurrentCredits] = useState(0);
+  const [applyStudentConcession, setApplyStudentConcession] = useState(false);
+  const [idCardUploaded, setIdCardUploaded] = useState(false);
+  const [ticketConfirmed, setTicketConfirmed] = useState(false);
+  const [ticketIdArray, setTicketIdArray] = useState([]);
+  const username = localStorage.getItem('username');
 
-axios.get('http://localhost:3000/user', { params: { username } }) 
-  .then(response => {
-    setCurrentCredits(response.data.credits);
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/user', { params: { username } });
+        setCurrentCredits(response.data.credits);
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+      }
+    };
+    fetchUserDetails();
+  }, [username]);
 
-  })
-  .catch(error => {
-    console.error('Error fetching user details:', error);
-  });
+  useEffect(() => {
+    if (ticketIds) {
+      const ids = ticketIds.split(',');
+      setTicketIdArray(ids);
+    }
+  }, [ticketIds]);
 
-  const ticketPrice = 500 
+  const baseTicketPrice = 500; 
 
   const handleApplyConcessionChange = (event) => {
-    setApplyStudentConcession(event.target.value === 'yes')
-  }
+    setApplyStudentConcession(event.target.value === 'yes');
+  };
 
-  const handleConfirmTicket = () => {
-    const priceToDeduct = applyStudentConcession ? 250 : 500; // Using the provided values
-  
-    if (currentCredits >= priceToDeduct) {
+  const handleConfirmTicket = async () => {
+    const priceToDeductPerTicket = applyStudentConcession ? baseTicketPrice / 2 : baseTicketPrice;
+
+    if (ticketIdArray.length === 0) {
+      alert('Please select tickets to book.');
+      return;
+    }
+
+    const totalTickets = ticketIdArray.length;
+    const totalPrice = totalTickets * priceToDeductPerTicket;
+
+    if (currentCredits >= totalPrice) {
       if (applyStudentConcession && !idCardUploaded) {
         alert('Please upload your student ID card.');
-        return; // Stop execution if the ID is not uploaded
-      } 
-  
-      // Send the request to the backend to update the user's credits
-      axios.post('/updateCredits', {
-        username: username, // Replace with actual username data if available
-        amount: -priceToDeduct // Deducting the credits
-      }).then(response => {
-        alert(`Credits updated successfully.`);
-        setCurrentCredits(currentCredits - priceToDeduct);
-        
-        // Now book the ticket after updating credits
-        axios.post('/bookTicket', {
-          movieName: movie, // Replace with actual movie name
-          location: location, // Replace with actual location
-          price: priceToDeduct, // Price after concession if applicable
-          userId: username // Or another user identifier if available
-        }).then(response => {
-          alert('Ticket booked successfully.');
-          setTicketConfirmed(true);
-        }).catch(error => {
-          console.error('Error booking ticket:', error);
-          alert('Failed to book ticket. Please try again.');
+        return;
+      }
+
+      const bookedTickets = [];
+      try {
+        for (const ticketId of ticketIdArray) {
+          const response = await axios.post('/bookTicket', {
+            movieName: movie,
+            location,
+            price: priceToDeductPerTicket,
+            userId: username,
+            seatNumber: ticketId,
+          });
+          bookedTickets.push(response.data.ticket); // Add booked ticket details
+        }
+
+        const updateCreditsResponse = await axios.post('/updateCredits', {
+          username,
+          amount: -totalPrice,
         });
-  
-      }).catch(error => {
-        console.error('Error updating credits:', error);
-        alert('Failed to update credits. Please try again.');
-      });
+
+        setCurrentCredits(currentCredits - totalPrice);
+        setTicketConfirmed(true);
+        alert(`Tickets booked successfully! (x${totalTickets})`);
+      } catch (error) {
+        console.error('Error booking tickets:', error);
+        alert('Failed to book tickets. Please try again.');
+      }
     } else {
-      alert('Insufficient credits to purchase the ticket.');
+      alert('Insufficient credits to purchase the tickets.');
     }
   };
 
-  const handleDownloadTicket = () => {
-    alert('Downloading ticket...')
-  }
-
-  const buttonStyle = {
-    backgroundColor: '#4caf50',
-    color: 'white',
-    padding: '10px 20px',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    marginRight: '10px',
-  }
-
-  const downloadButtonStyle = {
-    backgroundColor: '#008CBA',
-    color: 'white',
-    padding: '10px 20px',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-  }
-
   return (
-    <div
-      style={{
-        maxWidth: '400px',
-        margin: '0 auto',
-        padding: '20px',
-        border: '1px solid #ccc',
-        borderRadius: '5px',
-        backgroundColor: '#f9f9f9',
-      }}
-    >
-      <h2>Payment for Ticket {ticketId}</h2>
-      <div style={{ marginBottom: '20px' }}>
+    <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#f9f9f9' }}>
+      <h2>Payment for Tickets {ticketIds}</h2>
+      <div>
         <p>Current Credits: {currentCredits}</p>
-        <p>
-          Required Credits to Buy Ticket:{' '}
-          {applyStudentConcession ? ticketPrice / 2 : ticketPrice}
-        </p>
+        <p>Required Credits to Buy Tickets: {ticketIdArray.length * (applyStudentConcession ? baseTicketPrice / 2 : baseTicketPrice)}</p>
       </div>
-      <div style={{ marginBottom: '20px' }}>
+      <div>
         <label>
           Apply for Student Concession:
-          <select
-            value={applyStudentConcession ? 'yes' : 'no'}
-            onChange={handleApplyConcessionChange}
-            style={{ marginLeft: '10px' }}
-          >
+          <select value={applyStudentConcession ? 'yes' : 'no'} onChange={handleApplyConcessionChange} style={{ marginLeft: '10px' }}>
             <option value="yes">Yes</option>
             <option value="no">No</option>
           </select>
@@ -125,16 +105,16 @@ axios.get('http://localhost:3000/user', { params: { username } })
           </div>
         )}
       </div>
-      <button style={buttonStyle} onClick={handleConfirmTicket}>
+      <button onClick={handleConfirmTicket} style={{ backgroundColor: '#4caf50', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
         Confirm Ticket
       </button>
       {ticketConfirmed && (
-        <button style={downloadButtonStyle} onClick={handleDownloadTicket}>
+        <button onClick={() => alert('Downloading ticket...')} style={{ backgroundColor: '#008CBA', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
           Download Ticket
         </button>
       )}
     </div>
-  )
+  );
 }
 
-export default Payment
+export default Payment;

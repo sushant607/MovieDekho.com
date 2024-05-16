@@ -34,7 +34,7 @@ function App() {
           <Route path='/:movieName/Location-1' element={<SeatBookingL1/>}/>
           <Route path='/about' element={<About/>} />
           <Route path='/:movieId/Location-2' element={<SeatBookingL2/>} />
-          <Route path='/payment/:ticketId/:movie/:location' element={<Payment />} />
+          <Route path='/payment/:ticketIds/:movie/:location' element={<Payment />} />
         </Routes>
       </div>
     </Router>

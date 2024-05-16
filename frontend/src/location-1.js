@@ -1,8 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import seatImage from './img/seats.png';
 
-const SeatBookingL1 = () => {
+const SeatBookingL1 = ({ movieName }) => { // Receive movieName as a prop
+  const navigate = useNavigate();
   const locationName = "Location-1"; 
   const [location, setLocation] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -34,10 +35,10 @@ const SeatBookingL1 = () => {
       setSelectedSeats(selectedSeats.filter(
         selectedSeat => !(selectedSeat.row === row && selectedSeat.seat === seat)
       ));
-      setTotalCost(totalCost - 200);
+      setTotalCost(totalCost - 500);
     } else {
       setSelectedSeats([...selectedSeats, { row, seat }]);
-      setTotalCost(totalCost + 200);
+      setTotalCost(totalCost + 500);
     }
   };
 
@@ -62,7 +63,8 @@ const SeatBookingL1 = () => {
       }
       const data = await response.json();
       setLocation(data);
-      alert('Payment Successful!');
+      // Redirect to payment page with selected tickets as URL parameters
+      navigate(`/payment/${selectedSeats.map(seat => `${getSeatLabel(seat.row, seat.seat)}`).join(',')}/${movieName}/${locationName}`); // Include movieName in the URL
     } catch (error) {
       console.error('Error updating seat occupancy:', error);
     }
@@ -117,7 +119,7 @@ const SeatBookingL1 = () => {
         ))}
       </div>
       <div style={{ marginTop: '20px' }}>
-        <h3>Total Cost: ${totalCost}</h3>
+        <h3>Total Cost: Rs {totalCost}</h3>
         <button 
           style={{ 
             backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '5px', 
@@ -134,4 +136,3 @@ const SeatBookingL1 = () => {
 };
 
 export default SeatBookingL1;
-

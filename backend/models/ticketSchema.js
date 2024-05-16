@@ -16,6 +16,10 @@ const ticketSchema = new mongoose.Schema({
   userId: {
     type: String,
     required: true
+  },
+  seatNumber:{
+    type: String,
+    required: true
   }
 });
 
