@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -33,4 +34,13 @@ const userSchema = new mongoose.Schema({
 });
 
 export const User = mongoose.model('User', userSchema);
+// userSchema.statics.signup= async(username,password)=>{
+//   const isTaken = await User.findOne({username});
+//   if(isTaken){
+//     throw Error('Username already taken');}
+//     const salt=await bcrypt.genSalt(10)
+//     const hash=await bcrypt.hash(password,salt)
+//     const user=await this.create({username,password:hash})
+// }
+// export const User = mongoose.model('User', userSchema);
 

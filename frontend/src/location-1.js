@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import seatImage from './img/seats.png';
 
-const SeatBookingL1 = ({ movieName }) => { // Receive movieName as a prop
+const SeatBookingL1 = ({ movieName }) => { 
   const navigate = useNavigate();
   const locationName = "Location-1"; 
   const [location, setLocation] = useState(null);
