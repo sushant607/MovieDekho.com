@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 function TicketsPage() {
   const [tickets, setTickets] = useState([]);
@@ -26,6 +28,24 @@ function TicketsPage() {
     fetchTickets();
   }, [username]);
 
+  const generatePDF = (ticket) => {
+    const doc = new jsPDF();
+    doc.text('Ticket Details', 20, 10);
+
+    const tableColumn = ["Movie Name", "Location", "Price", "Seat Number"];
+    const tableRows = [
+      [
+        ticket.movieName,
+        ticket.location,
+        `Rs ${ticket.price}`,
+        ticket.seatNumber
+      ]
+    ];
+
+    doc.autoTable(tableColumn, tableRows, { startY: 20 });
+    doc.save(`ticket_${ticket._id}.pdf`);
+  };
+
   const cardStyle = {
     padding: '20px',
     margin: '20px',
@@ -48,23 +68,47 @@ function TicketsPage() {
     padding: '20px',
   };
 
+  const buttonStyle = {
+    backgroundColor: '#007bff',  /* Bootstrap primary blue color */
+    color: 'white',
+    border: 'none',
+    padding: '10px 20px',
+    fontSize: '16px',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+    marginTop: '10px',
+  };
+
+  const buttonHoverStyle = {
+    backgroundColor: '#0056b3',  /* Darker blue for hover state */
+  };
+
   return (
     <>
-    <h1>My Tickets</h1>
-    <div style={containerStyle}>
-      {tickets.length > 0 ? (
-        tickets.map((ticket) => (
-          <div key={ticket._id} style={cardStyle}>
-            <h2>{ticket.movieName}</h2>
-            <p>Location: {ticket.location}</p>
-            <p>Price: Rs {ticket.price}</p>
-            <p>Seat Number: {ticket.seatNumber}</p>
-          </div>
-        ))
-      ) : (
-        <p>You have no tickets.</p>
-      )}
-    </div>
+      <h1>My Tickets</h1>
+      <div style={containerStyle}>
+        {tickets.length > 0 ? (
+          tickets.map((ticket) => (
+            <div key={ticket._id} style={cardStyle}>
+              <h2>{ticket.movieName}</h2>
+              <p>Location: {ticket.location}</p>
+              <p>Price: Rs {ticket.price}</p>
+              <p>Seat Number: {ticket.seatNumber}</p>
+              <button
+                style={buttonStyle}
+                onMouseOver={(e) => e.currentTarget.style.backgroundColor = buttonHoverStyle.backgroundColor}
+                onMouseOut={(e) => e.currentTarget.style.backgroundColor = buttonStyle.backgroundColor}
+                onClick={() => generatePDF(ticket)}
+              >
+                Generate PDF
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>You have no tickets.</p>
+        )}
+      </div>
     </>
   );
 };
