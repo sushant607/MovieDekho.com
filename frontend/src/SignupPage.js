@@ -2,32 +2,31 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function SignupPage({ handleTogglePage }) {
+function SignupPage() {
   const navigate = useNavigate();
   
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [gender, setGender] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    age: '',
+    gender: '',
+    username: '',
+    password: ''
+  });
 
-  const handleToggleMode = () => {
-    navigate('/login');
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSignup = async (e) => {
     e.preventDefault(); 
     try {
-      const response = await axios.post('http://localhost:3000/register', {
-        name,
-        age,
-        gender,
-        username,
-        password
-      });
-      if (response.data.success) {
+      const response = await axios.post('http://localhost:4000/signup', formData);
+      if (response.data.token) {
         alert('User created successfully');
-        handleToggleMode(); 
+        navigate('/login'); // Redirect to login page after successful sign-up
       }
     } catch (error) {
       console.error(error);
@@ -75,8 +74,8 @@ function SignupPage({ handleTogglePage }) {
                 border: '1px solid #ccc',
                 boxSizing: 'border-box',
               }}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={formData.name}
+              onChange={handleChange}
             />
           </div>
           <div>
@@ -100,8 +99,8 @@ function SignupPage({ handleTogglePage }) {
                 border: '1px solid #ccc',
                 boxSizing: 'border-box',
               }}
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
+              value={formData.age}
+              onChange={handleChange}
             />
           </div>
           <div>
@@ -117,8 +116,8 @@ function SignupPage({ handleTogglePage }) {
                 boxSizing: 'border-box',
                 marginBottom: '10px',
               }}
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
+              value={formData.gender}
+              onChange={handleChange}
             >
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
@@ -146,8 +145,8 @@ function SignupPage({ handleTogglePage }) {
                 border: '1px solid #ccc',
                 boxSizing: 'border-box',
               }}
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={formData.username}
+              onChange={handleChange}
             />
           </div>
           <div>
@@ -171,8 +170,8 @@ function SignupPage({ handleTogglePage }) {
                 border: '1px solid #ccc',
                 boxSizing: 'border-box',
               }}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formData.password}
+              onChange={handleChange}
             />
           </div>
           <button
@@ -194,7 +193,7 @@ function SignupPage({ handleTogglePage }) {
         <p>
           Already a user?{' '}
           <button
-            onClick={handleToggleMode}
+            onClick={() => navigate('/login')}
             style={{
               border: 'none',
               background: 'none',
@@ -207,7 +206,7 @@ function SignupPage({ handleTogglePage }) {
         </p>
       </div>
     </div>
-  )
+  );
 }
 
 export default SignupPage;

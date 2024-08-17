@@ -2,8 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import { MoviesRouter } from "./routes/displayMovie.js";
-import { userRouter } from "./routes/signup.js";
-import { loginRouter } from "./routes/login.js";
+import { LoginRouter } from "./routes/signup.js";
+// import { loginRouter } from "./routes/login.js";
 import { LocationRouter } from "./routes/displayLocation.js";
 import {MovieRouter} from './Routes/getMovie.js'
 import {UserDetails} from './Routes/getUser.js'
@@ -28,8 +28,8 @@ app.get("/", (req, res) => {
     res.json({ mssg: "hello" });
 });
 
-app.use(userRouter);
-app.use(loginRouter);
+app.use(LoginRouter);
+// app.use(loginRouter);
 app.use(MoviesRouter);
 app.use(MovieRouter);
 app.use(LocationRouter);

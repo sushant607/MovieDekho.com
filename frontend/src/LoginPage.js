@@ -1,31 +1,36 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { login, logout } from "./redux/store";
+import { login } from './redux/store';
+
 function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch(); 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const handleToggleMode=()=>{
+
+  const handleToggleMode = () => {
     navigate('/signup');
-  }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('http://localhost:3000/login', { username, password });
-      if (data.success) {
-        alert(data.message);
-        localStorage.setItem("username", username);
-        dispatch(login())
-        navigate('/home');
+      const { data } = await axios.post('http://localhost:4000/login', { username, password });
+
+      if (data.token) { // Backend should return a token if login is successful
+        localStorage.setItem("token", data.token); // Store the JWT token
+        localStorage.setItem("username", username); // Store the username
+        dispatch(login()); // Dispatch login action to update Redux state
+        alert("Login successful");
+        navigate('/home'); // Redirect to home page
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       alert("Invalid credentials");
     }
-  }
+  };
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -38,6 +43,7 @@ function LoginPage() {
               type="text"
               name="username"
               required
+              value={username}
               onChange={(e) => setUsername(e.target.value)}
               style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc', boxSizing: 'border-box' }}
             />
@@ -48,6 +54,7 @@ function LoginPage() {
               type="password"
               name="password"
               required
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
               style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc', boxSizing: 'border-box' }}
             />
